@@ -73,8 +73,8 @@
     <LibraryPath>G:\Projects\C++\Collision-Engine\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>G:\Projects\C++\Polygon-Engine\Engine\Dependecies\GLEW\include;G:\Projects\C++\Polygon-Engine\Engine\Dependecies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>G:\Projects\C++\Polygon-Engine\Engine\Dependecies\GLEW\lib\Release\Win32;G:\Projects\C++\Polygon-Engine\Engine\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependecies\GLEW\include;$(SolutionDir)\Dependecies\GLFW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependecies\GLEW\lib\Release\Win32;$(SolutionDir)\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
