@@ -47,7 +47,7 @@ int main() {
 
 	SimpleRenderer* renderer = new SimpleRenderer();
 
-	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\Sphere2.obj");
+	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\Cube.obj");
 
 	Shader* shader = new Shader(vertexShader, fragmentShader);
 

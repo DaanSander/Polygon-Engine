@@ -17,6 +17,7 @@ namespace engine { namespace renderer {
 		//glEnableVertexAttribArray(2);
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getEboID());
 
+		//glDrawArrays(GL_TRIANGLES, mesh->vertices.size() / (sizeof(math::Vector3f) + sizeof(math::Vector2f)), GL_FLOAT);
 		glDrawElements(GL_TRIANGLES, mesh->indices.size(), GL_UNSIGNED_INT, 0);
 		if ((errorCode = glGetError()) != 0) {
 			std::cout << "An error ocurred whilst trying to draw mesh elements error id: " << errorCode << std::endl;

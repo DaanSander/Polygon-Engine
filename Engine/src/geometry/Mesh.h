@@ -27,7 +27,7 @@ namespace engine { namespace geometry {
 
 	public:
 		std::vector<Vertex*> vertices;
-		std::vector<GLuint> indices;
+		std::vector<GLuint>  indices;
 		std::vector<Texture> textures;
 
 		Mesh(std::vector<Vertex*> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);

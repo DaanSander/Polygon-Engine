@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../geometry/Model.h"
+#include "../../math/Math.h"
 
 namespace engine { namespace renderer {
 
