@@ -30,6 +30,8 @@ namespace engine {
 
 			static Matrix4f transformation(const Matrix4f& rotation, const Matrix4f& scale, const Matrix4f& translation);
 
+			static Matrix4f lookAt(const Vector3f& object, const Vector3f& camera, const Vector3f& up);
+
 			friend Matrix4f operator*(const Matrix4f& left, const Matrix4f& right);
 		};
 

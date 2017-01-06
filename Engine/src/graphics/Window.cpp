@@ -33,7 +33,10 @@ namespace engine { namespace graphics {
 		glfwSetWindowUserPointer(window, this);
 
 		this->inputHandler = new io::InputHandler(window);
-		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_DEPTH_TEST); 
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+
 	}
 
 	Window::~Window() {

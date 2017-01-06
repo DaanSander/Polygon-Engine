@@ -112,6 +112,27 @@ namespace engine {
 			return out;
 		}
 
+		Matrix4f Matrix4f::lookAt(const Vector3f& object, const Vector3f& camera, const Vector3f& up) {
+			Matrix4f out(1.0f);
+			Vector3f zaxis = (object - camera).normalized();
+			Vector3f xaxis = (up.cross(zaxis.normalized()));
+			Vector3f yaxis = zaxis.cross(xaxis);
+
+			out.elements[0 + 0 * 4] = xaxis.x;
+			out.elements[1 + 0 * 4] = xaxis.y;
+			out.elements[2 + 0 * 4] = xaxis.z;
+
+			out.elements[0 + 1 * 4] = yaxis.x;
+			out.elements[1 + 1 * 4] = yaxis.y;
+			out.elements[2 + 1 * 4] = yaxis.z;
+
+			out.elements[0 + 2 * 4] = -zaxis.x;
+			out.elements[1 + 2 * 4] = -zaxis.y;
+			out.elements[2 + 2 * 4] = -zaxis.z;
+
+			return out * Matrix4f::translation(camera.reverse());
+		}
+
 		Matrix4f Matrix4f::transformation(const Matrix4f& rotation, const Matrix4f& scale, const Matrix4f& translation) {
 			return (scale * rotation) * translation;
 		}

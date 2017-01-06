@@ -23,6 +23,10 @@ namespace engine { namespace math {
 
 		float dot(Vector3f other) const;
 
+		Vector3f normalized() const;
+
+		Vector3f cross(Vector3f other) const;
+
 		Vector3f multiply(float scalar) const;
 
 		Vector3f reverse() const;

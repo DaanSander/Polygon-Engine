@@ -12,9 +12,9 @@ namespace engine { namespace renderer {
 		mesh->setupMesh();
 		glBindVertexArray(mesh->getVaoID());
 		
-		//glEnableVertexAttribArray(0);
-		//glEnableVertexAttribArray(1);
-		//glEnableVertexAttribArray(2);
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getEboID());
 
 		//glDrawArrays(GL_TRIANGLES, mesh->vertices.size() / (sizeof(math::Vector3f) + sizeof(math::Vector2f)), GL_FLOAT);
@@ -24,9 +24,9 @@ namespace engine { namespace renderer {
 			system("pause");
 		}
 
-		//glDisableVertexAttribArray(0);
-		//glDisableVertexAttribArray(1);
-		//glDisableVertexAttribArray(2);
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(2);
 		glBindVertexArray(0);
 
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

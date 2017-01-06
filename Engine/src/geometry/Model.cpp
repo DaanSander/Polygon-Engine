@@ -9,7 +9,7 @@ namespace engine {
 
 		void Model::loadModel(std::string path) {
 			Assimp::Importer importer;
-			const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+			const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
 
 			if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 				std::cout << "An error ocurred while loading model at path: " << path << " log: " << importer.GetErrorString() << std::endl;
@@ -43,50 +43,44 @@ namespace engine {
 		Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
 			using namespace math;
 			using namespace std;
-			vector<Vertex*> vertices;
+			vector<Vertex> vertices;
 			vector<GLuint> indices;
 			vector<Texture> textures;
 
 			for (int i = 0; i < mesh->mNumVertices; i++) {
-				Vertex vertex;
+				Vertex* vertex = new Vertex();
 
 				Vector3f vector;
 				vector.x = mesh->mVertices[i].x;
 				vector.y = mesh->mVertices[i].y;
 				vector.z = mesh->mVertices[i].z;
 
-				vertex.position = vector;
+				vertex->position = vector;
 				
 				Vector3f normal;
 				normal.x = mesh->mNormals[i].x;
 				normal.y = mesh->mNormals[i].y;
 				normal.z = mesh->mNormals[i].z;
 
-				vertex.normal = normal;
+				vertex->normal = normal;
 
 				if (mesh->mTextureCoords[0]) {
 					Vector2f uvCoord;
 					uvCoord.x = mesh->mTextureCoords[0][i].x;
 					uvCoord.y = mesh->mTextureCoords[0][i].y;
 
-					vertex.uvCoord = uvCoord;
+					vertex->uvCoord = uvCoord;
 				} else
-					vertex.uvCoord = Vector2f();
+					vertex->uvCoord = Vector2f();
 
-				vertices.push_back(&vertex);
+				vertices.push_back(*vertex);
 			}
 
-			for (int f = 0; f < mesh->mNumFaces; f++) {
-				aiFace face = mesh->mFaces[f];
-				for (int i = 0; i < face.mNumIndices; i++)
-					indices.push_back(face.mIndices[i]);
-
-				for (GLuint i = 0; i < mesh->mNumFaces; i++)
-				{
-					aiFace face = mesh->mFaces[i];
-					for (GLuint j = 0; j < face.mNumIndices; j++)
-						indices.push_back(face.mIndices[j]);
-				}
+			for (GLuint i = 0; i < mesh->mNumFaces; i++)
+			{
+				aiFace face = mesh->mFaces[i];
+				for (GLuint j = 0; j < face.mNumIndices; j++)
+					indices.push_back(face.mIndices[j]);
 			}
 
 			if (mesh->mMaterialIndex >= 0) {

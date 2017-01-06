@@ -73,8 +73,8 @@
     <LibraryPath>G:\Projects\C++\Collision-Engine\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\Dependecies\GLEW\include;$(SolutionDir)\Dependecies\Assimp\include;$(SolutionDir)\Dependecies\SOIL\include;$(SolutionDir)\Dependecies\FreeImage\Dist\x32;$(SolutionDir)\Dependecies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependecies\FreeImage\Dist\x32;$(SolutionDir)\Dependecies\GLEW\lib\Release\Win32;$(SolutionDir)\Dependecies\Assimp\lib;$(SolutionDir)\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependecies\GLM;$(SolutionDir)\Dependecies\GLEW\include;$(SolutionDir)\Dependecies\Assimp\include;$(SolutionDir)\Dependecies\SOIL\src;$(SolutionDir)\Dependecies\FreeImage\Dist\x32;$(SolutionDir)\Dependecies\GLFW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependecies\FreeImage\Dist\x32;$(SolutionDir)\Dependecies\GLEW\lib\Release\Win32;$(SolutionDir)\Dependecies\SOIL\lib;$(SolutionDir)\Dependecies\Assimp\lib;$(SolutionDir)\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)\Dependecies\GLEW\include;$(SolutionDir)\Dependecies\Assimp\include;$(SolutionDir)\Dependecies\GLFW\include;$(IncludePath)</IncludePath>
@@ -88,7 +88,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mt.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mt.lib;FreeImage.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

@@ -13,6 +13,6 @@ namespace engine { namespace renderer {
 			void renderMesh(geometry::Mesh* mesh);
 
 			void renderModel(geometry::Model* model);
-
+			
 		};
 }}

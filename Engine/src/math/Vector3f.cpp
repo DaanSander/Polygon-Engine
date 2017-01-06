@@ -20,6 +20,21 @@ namespace engine { namespace math {
 		return xm + ym + zm;
 	}
 
+	Vector3f Vector3f::normalized() const {
+		Vector3f out;
+
+		float length = magnitude();
+
+		out.x = this->x / length;
+		out.y = this->y / length;
+		out.z = this->z / length;
+		return out;
+	}
+
+	Vector3f Vector3f::cross(Vector3f other) const {
+		return Vector3f(this->z * other.y - this->y * other.z, this->x * other.z - this->z * other.x, this->x * other.y - this->y * other.x);
+	}
+
 	Vector3f Vector3f::multiply(float scalar) const {
 		Vector3f out;
 		out.x = this->x * scalar;

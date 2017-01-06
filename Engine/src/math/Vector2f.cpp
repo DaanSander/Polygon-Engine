@@ -16,6 +16,16 @@ namespace engine {
 			return ((this->x * vector.x) + (this->x * vector.y) + (this->y * vector.x) + (this->y * vector.y));
 		}
 
+		Vector2f Vector2f::normalized() const {
+			Vector2f out;
+
+			float length = magnitude();
+
+			out.x = this->x / length;
+			out.y = this->y / length;
+			return out;
+		}
+
 		Vector2f Vector2f::multiply(float scalar) const {
 			Vector2f out;
 			out.x = this->x * scalar;
