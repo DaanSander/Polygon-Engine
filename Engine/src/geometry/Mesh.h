@@ -1,23 +1,46 @@
 #pragma once
 
+#include <string>
 #include <vector>
-#include "../graphics/buffers/VertexArray.h"
+#include <sstream>
+#include <GL\glew.h>
+#include <assimp\scene.h>
+#include "../math/Math.h"
+#include "../graphics/Shader.h"
 
 namespace engine { namespace geometry {
 
+	struct Vertex {
+		math::Vector3f position, normal;
+		math::Vector2f uvCoord;
+	};
+
+	struct Texture {
+		GLuint id;
+		std::string type;
+		aiString path;
+	};
+
 	class Mesh {
 
-		GLsizei vertexCount;
-		graphics::VertexArray* vertexArray;
+		GLuint VAO, VBO, EBO;
 
 	public:
-		Mesh(std::vector<GLfloat> vertices);
+		std::vector<Vertex> vertices;
+		std::vector<GLuint> indices;
+		std::vector<Texture> textures;
+
+		Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
 
 		~Mesh();
 
-		inline graphics::VertexArray* getVertexArray() { return vertexArray; }
+		void setupMesh();
 
-		inline GLsizei getVertexCount() { return vertexCount; };
+		void setupTextures(graphics::Shader* shader);
+
+		GLsizei getVertexCount() { return vertices.size(); };
+
+		inline GLuint getVaoID() { return VAO; }
 	};
 
 }}

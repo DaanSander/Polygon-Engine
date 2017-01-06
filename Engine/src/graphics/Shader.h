@@ -1,5 +1,8 @@
-#include <GL/glew.h>
+#include <unordered_map>
 #include <iostream>
+#include <GL/glew.h>
+
+#include "..\math\Math.h"
 
 namespace engine { namespace graphics {
 
@@ -9,6 +12,8 @@ namespace engine { namespace graphics {
 
 		GLuint compileShader(char* source, GLenum type);
 		
+		std::unordered_map<char*, GLuint> uniforms;
+
 	public:
 		Shader(char* vertexShader, char* fragmentShader);
 
@@ -17,6 +22,12 @@ namespace engine { namespace graphics {
 		void enable();
 
 		void disable();
+
+		GLuint getUniformLocation(char* name);
+
+		void loadUniformMat4f(GLuint location, math::Matrix4f matrix);
+
+		inline GLuint getProgramID() { return programID; }
 	};
 
 }}

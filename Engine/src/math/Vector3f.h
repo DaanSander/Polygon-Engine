@@ -16,8 +16,8 @@ namespace engine { namespace math {
 				float x, y, z;
 			};
 		};
-
-		Vector3f(float x, float y, float z);
+		
+		Vector3f(float x = 0.0f, float y = 0.0f, float z = 0.0f);
 		
 		float magnitude() const;
 
@@ -30,6 +30,18 @@ namespace engine { namespace math {
 		Vector3f substract(Vector3f other) const;
 
 		Vector3f add(Vector3f other) const;
+
+		Vector3f operator-() const;
+
+		friend Vector3f operator-(const Vector3f& vector);
+
+		friend Vector3f operator+(const Vector3f& a, const Vector3f& b);
+
+		friend Vector3f operator-(const Vector3f& a, const Vector3f& b);
+
+		friend float operator* (const Vector3f& a, const Vector3f& other);
+
+		friend Vector3f operator* (const Vector3f& vector, float scalar);
 	};
 
 }}

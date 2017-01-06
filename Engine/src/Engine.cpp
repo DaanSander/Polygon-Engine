@@ -1,9 +1,10 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW\glfw3.h>
-#include "graphics\Window.h"
+#include <assimp\ai_assert.h>
+#include "geometry\Model.h"
 #include "graphics\Shader.h"
-#include "geometry\Mesh.h"
+#include "graphics\Window.h"
 #include "graphics\renderer\SimpleRenderer.h"
 
 //https://en.wikipedia.org/wiki/Rotation_matrix
@@ -24,21 +25,23 @@ char* fragmentShader =
 
 int main() {
 	using namespace engine;
-	using namespace graphics;
 	using namespace geometry;
 	using namespace renderer;
 
-	Window* window = new Window(400, 600, "Test");
+	graphics::Window* window = new graphics::Window(400, 600, "Test");
 
 	if (glewInit() != GLEW_OK) {
 		printf("Failed to initialize glew");
 		return -1;
 	}
 
-
 	SimpleRenderer* renderer = new SimpleRenderer();
 
-	Shader* shader = new Shader(vertexShader, fragmentShader);
+	std::cout << "G:\Downloads\Nanosuit2\nanosuit2.obj" << std::endl;
+
+	Model* model = new Model("G:\Downloads\Nanosuit2\nanosuit2.obj");
+
+	graphics::Shader* shader = new graphics::Shader(vertexShader, fragmentShader);
 
 	std::vector<GLfloat> vertices = { // First triangle
 		0.5f,  0.5f, 0.0f,  // Top Right
@@ -52,23 +55,17 @@ int main() {
 		1, 2, 3    // Second Triangle
 	};
 
-	Mesh* mesh = new Mesh(vertices);
-
-	IndexBuffer* indexBuffer = new IndexBuffer(indices.data(), indices.size());
-
-	mesh->getVertexArray()->setIndexBuffer(indexBuffer);
-
 	shader->enable();
 	while (!window->shouldClose()) {
 		std::cout << window->getInputHandler()->buttonPressed(GLFW_MOUSE_BUTTON_1) << std::endl;
 		renderer->prepareRenderer();
-		renderer->renderMesh(mesh);
+		renderer->renderModel(model);
 		window->tick();
 		window->render();
 	}
 	shader->disable();
 
-	delete mesh;
+	delete model;
 	delete window;
 	delete renderer;
 }

@@ -20,6 +20,16 @@ namespace engine { namespace graphics {
 		glDeleteProgram(this->programID);
 	}
 
+	GLuint Shader::getUniformLocation(char* name) {
+		if (uniforms.find(name) == uniforms.end())
+			uniforms.emplace(name, glGetUniformLocation(programID, name));
+		return uniforms[name];
+	}
+
+	void Shader::loadUniformMat4f(GLuint location, math::Matrix4f matrix) {
+		glUniformMatrix4fv(location, 1, GL_FALSE, matrix.elements);
+	}
+
 	GLuint Shader::compileShader(char* source, GLenum type) {
 		GLuint id = glCreateShader(type);
 

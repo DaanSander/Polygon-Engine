@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../geometry/Mesh.h"
+#include "../../geometry/Model.h"
 
 namespace engine { namespace renderer {
 
@@ -10,6 +10,8 @@ namespace engine { namespace renderer {
 			void prepareRenderer();
 
 			void renderMesh(geometry::Mesh* mesh);
+
+			void renderModel(geometry::Model* model);
 
 		};
 }}

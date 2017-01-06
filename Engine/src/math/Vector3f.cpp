@@ -2,7 +2,7 @@
 
 namespace engine { namespace math {
 
-	Vector3f::Vector3f(float x = 0.0f, float y = 0.0f, float z = 0.0f) {
+	Vector3f::Vector3f(float x, float y, float z) {
 		this->x = x;
 		this->y = y;
 		this->z = z;
@@ -46,5 +46,29 @@ namespace engine { namespace math {
 		out.y = this->y + other.y;
 		out.z = this->z + other.z;
 		return out;
+	}
+
+	Vector3f Vector3f::operator-() const {
+		return this->reverse();
+	}
+
+	Vector3f operator-(const Vector3f& vector) {
+		return vector.reverse();
+	}
+
+	Vector3f operator+(const Vector3f& a, const Vector3f& b) {
+		return a.add(b);
+	}
+
+	Vector3f operator-(const Vector3f& a, const Vector3f& b) {
+		return a.substract(b);
+	}
+
+	float operator* (const Vector3f& a, const Vector3f& other) {
+		return a.dot(other);
+	}
+
+	Vector3f operator* (const Vector3f& vector, float scalar) {
+		return vector.multiply(scalar);
 	}
 }}

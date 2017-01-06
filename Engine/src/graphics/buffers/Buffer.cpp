@@ -2,7 +2,7 @@
 
 namespace engine { namespace graphics {
 
-	Buffer::Buffer(GLfloat data[],GLuint dimensions, GLuint size) {
+	Buffer::Buffer(const GLvoid* data,GLuint dimensions, GLuint size) {
 		this->dimensions = dimensions;
 		glGenBuffers(1, &bufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, bufferID);

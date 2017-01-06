@@ -10,7 +10,7 @@ namespace engine { namespace graphics {
 		GLsizei size;
 
 	public:
-		IndexBuffer(GLuint data[], GLsizei size);
+		IndexBuffer(const GLvoid* data, GLsizei size);
 
 		~IndexBuffer();
 

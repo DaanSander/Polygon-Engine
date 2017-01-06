@@ -9,7 +9,7 @@ namespace engine {namespace graphics {
 		GLuint bufferID, dimensions;
 
 	public:
-		Buffer(GLfloat data[],GLuint dimensions, GLuint size);
+		Buffer(const GLvoid* data,GLuint dimensions, GLuint size);
 
 		~Buffer();
 

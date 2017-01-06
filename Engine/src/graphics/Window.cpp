@@ -40,6 +40,24 @@ namespace engine { namespace graphics {
 		glfwTerminate();
 	}
 
+	void Window::executeCallbacks(std::vector<EventCallbackfunc> callbacks) {
+		for (int i = 0; i < callbacks.size(); i++) {
+			callbacks[i]();
+		}
+	}
+
+	void Window::addRenderCallback(EventCallbackfunc callback) {
+		render_callbacks.push_back(callback);
+	}
+	
+	void Window::addUpdateCallback(EventCallbackfunc callback) {
+		update_callbacks.push_back(callback);
+	}
+	
+	void Window::addExitCallback(EventCallbackfunc callback) {
+		exit_callbacks.push_back(callback);
+	}
+	
 	void Window::render() {
 		glfwSwapBuffers(window);
 	}

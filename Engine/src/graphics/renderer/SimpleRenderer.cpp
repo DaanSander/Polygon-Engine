@@ -8,20 +8,22 @@ namespace engine { namespace renderer {
 	}
 
 	void SimpleRenderer::renderMesh(geometry::Mesh* mesh) {
-		if (mesh->getVertexArray()->indexBuffer == nullptr) {
-			printf("Mesh does not contain an index buffer aborting \n");
-			return;
-		}
-		glBindVertexArray(mesh->getVertexArray()->getID());
+		mesh->setupMesh();
+		glBindVertexArray(mesh->getVaoID());
 		glEnableVertexAttribArray(0);
 		
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getVertexArray()->indexBuffer->getBufferID());
 
-		glDrawElements(GL_TRIANGLES, mesh->getVertexArray()->indexBuffer->getSize(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, mesh->indices.size(), GL_UNSIGNED_INT, 0);
 
 		glDisableVertexAttribArray(0);
 		glBindVertexArray(0);
 
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	void SimpleRenderer::renderModel(geometry::Model* model) {
+		for (int i = 0; i < model->getMeshes().size(); i++)
+			renderMesh(model->getMeshes()[i]);
 	}
 }}

@@ -2,7 +2,7 @@
 
 namespace engine { namespace graphics {
 
-		IndexBuffer::IndexBuffer(GLuint data[], GLsizei size) {
+		IndexBuffer::IndexBuffer(const GLvoid* data, GLsizei size) {
 			this->size = size;
 			glGenBuffers(1, &this->bufferID);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->bufferID);

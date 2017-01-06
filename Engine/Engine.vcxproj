@@ -73,12 +73,12 @@
     <LibraryPath>G:\Projects\C++\Collision-Engine\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\Dependecies\GLEW\include;$(SolutionDir)\Dependecies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependecies\GLEW\lib\Release\Win32;$(SolutionDir)\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependecies\GLEW\include;$(SolutionDir)\Dependecies\Assimp\include;$(SolutionDir)\Dependecies\SOIL\include;$(SolutionDir)\Dependecies\FreeImage\Dist\x32;$(SolutionDir)\Dependecies\GLFW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependecies\FreeImage\Dist\x32;$(SolutionDir)\Dependecies\GLEW\lib\Release\Win32;$(SolutionDir)\Dependecies\Assimp\lib;$(SolutionDir)\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)\Dependecies\GLEW\include;$(SolutionDir)\Dependecies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependecies\GLEW\lib\Release\Win32;$(SolutionDir)\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependecies\GLEW\include;$(SolutionDir)\Dependecies\Assimp\include;$(SolutionDir)\Dependecies\GLFW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependecies\GLEW\lib\Release\Win32;$(SolutionDir)\Dependecies\Assimp\lib;$(SolutionDir)\Dependecies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -88,7 +88,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mt.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -110,7 +110,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,28 +129,44 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\entity\Enity.cpp" />
+    <ClCompile Include="src\entity\EntityBehaviour.cpp" />
     <ClCompile Include="src\geometry\Mesh.cpp" />
+    <ClCompile Include="src\geometry\Model.cpp" />
     <ClCompile Include="src\graphics\buffers\Buffer.cpp" />
     <ClCompile Include="src\graphics\buffers\IndexBuffer.cpp" />
     <ClCompile Include="src\graphics\buffers\VertexArray.cpp" />
+    <ClCompile Include="src\graphics\material\Material.cpp" />
     <ClCompile Include="src\graphics\renderer\SimpleRenderer.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
+    <ClCompile Include="src\graphics\Texture.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\io\InputHandler.cpp" />
+    <ClCompile Include="src\math\Matrix4f.cpp" />
     <ClCompile Include="src\math\Vector2f.cpp" />
     <ClCompile Include="src\math\Vector3f.cpp" />
+    <ClCompile Include="src\math\Vector4f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entity\Entity.h" />
+    <ClInclude Include="src\entity\EntityBehaviour.h" />
     <ClInclude Include="src\geometry\Mesh.h" />
+    <ClInclude Include="src\geometry\Model.h" />
     <ClInclude Include="src\graphics\buffers\Buffer.h" />
     <ClInclude Include="src\graphics\buffers\IndexBuffer.h" />
     <ClInclude Include="src\graphics\buffers\VertexArray.h" />
+    <ClInclude Include="src\graphics\material\Material.h" />
     <ClInclude Include="src\graphics\renderer\SimpleRenderer.h" />
     <ClInclude Include="src\graphics\Shader.h" />
+    <ClInclude Include="src\graphics\Texture.h" />
     <ClInclude Include="src\graphics\Window.h" />
     <ClInclude Include="src\io\InputHandler.h" />
+    <ClInclude Include="src\math\Math.h" />
+    <ClInclude Include="src\math\Mathf.h" />
+    <ClInclude Include="src\math\Matrix4f.h" />
     <ClInclude Include="src\math\Vector2f.h" />
     <ClInclude Include="src\math\Vector3f.h" />
+    <ClInclude Include="src\math\Vector4f.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
