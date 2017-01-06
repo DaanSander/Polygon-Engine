@@ -26,11 +26,11 @@ namespace engine { namespace geometry {
 		GLuint VAO, VBO, EBO;
 
 	public:
-		std::vector<Vertex> vertices;
+		std::vector<Vertex*> vertices;
 		std::vector<GLuint> indices;
 		std::vector<Texture> textures;
 
-		Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
+		Mesh(std::vector<Vertex*> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
 
 		~Mesh();
 
