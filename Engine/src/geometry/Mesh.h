@@ -41,6 +41,8 @@ namespace engine { namespace geometry {
 		GLsizei getVertexCount() { return vertices.size(); };
 
 		inline GLuint getVaoID() { return VAO; }
+
+		inline GLuint getEboID() { return EBO; }
 	};
 
 }}
