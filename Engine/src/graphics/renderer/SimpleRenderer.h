@@ -10,9 +10,9 @@ namespace engine { namespace renderer {
 		public:
 			void prepareRenderer();
 
-			void renderMesh(geometry::Mesh* mesh);
+			void renderMesh(geometry::Mesh* mesh, graphics::Shader* shader);
 
-			void renderModel(geometry::Model* model);
+			void renderModel(geometry::Model* model, graphics::Shader* shader);
 			
 		};
 }}

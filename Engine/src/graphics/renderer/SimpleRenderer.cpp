@@ -7,11 +7,11 @@ namespace engine { namespace renderer {
 		glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
 	}
 
-	void SimpleRenderer::renderMesh(geometry::Mesh* mesh) {
+	void SimpleRenderer::renderMesh(geometry::Mesh* mesh, graphics::Shader* shader) {
 		GLuint errorCode = 0;
-		mesh->setupMesh();
+		mesh->setupTextures(shader);
 		glBindVertexArray(mesh->getVaoID());
-		
+
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
@@ -24,16 +24,17 @@ namespace engine { namespace renderer {
 			system("pause");
 		}
 
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
+		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(0);
 		glBindVertexArray(0);
 
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	void SimpleRenderer::renderModel(geometry::Model* model) {
+	void SimpleRenderer::renderModel(geometry::Model* model, graphics::Shader* shader) {
 		for (int i = 0; i < model->getMeshes().size(); i++)
-			renderMesh(&model->getMeshes()[i]);
+			renderMesh(&model->getMeshes()[i], shader);
+			//model->getMeshes()[i].draw(shader);
 	}
 }}

@@ -37,6 +37,8 @@ namespace engine { namespace geometry {
 
 		void setupMesh();
 
+		void setupTestRender();
+
 		void setupTextures(graphics::Shader* shader);
 
 		GLsizei getVertexCount() { return vertices.size(); };

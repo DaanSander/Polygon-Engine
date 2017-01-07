@@ -18,20 +18,41 @@ namespace engine { namespace geometry {
 		}
 
 		void Mesh::setupMesh() {
-			glGenVertexArrays(1, &VAO);
-			glGenBuffers(1, &VBO);
-			glGenBuffers(1, &EBO);
+			glGenVertexArrays(1, &this->VAO);
+			glGenBuffers(1, &this->VBO);
+			glGenBuffers(1, &this->EBO);
 
-			glBindVertexArray(VAO);
+			glBindVertexArray(this->VAO);
 
-			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * this->vertices.size(), &this->vertices[0], GL_STATIC_DRAW);
 
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->indices.size(), &this->indices[0], GL_STATIC_DRAW);
 
 			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) 0);
+			
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
+
+			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uvCoord));
+
+			glBindVertexArray(0);
+		}
+
+		void Mesh::setupTestRender() {
+			glBindVertexArray(this->VAO);
+
+			glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * this->vertices.size(), &this->vertices[0], GL_STATIC_DRAW);
+
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->indices.size(), &this->indices[0], GL_STATIC_DRAW);
+
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
 
 			glEnableVertexAttribArray(1);
 			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
@@ -53,9 +74,10 @@ namespace engine { namespace geometry {
 				stringstream ss;
 				string number;
 				string name = this->textures[i].type;
-				if (name == "texture_diffuse")
+				if (name == "texture_diffuse") {
+					std::cout << "setting up diffuse texture" << std::endl;
 					ss << diffuseTexureNr++;
-				else if (name == "texture_specular")
+				} else if (name == "texture_specular")
 					ss << specularTextureNr;
 
 				number = ss.str();
@@ -64,6 +86,6 @@ namespace engine { namespace geometry {
 				glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
 			}
 
-			glActiveTexture(GL_TEXTURE0);
+			//glActiveTexture(GL_TEXTURE0);
 		}
 }}

@@ -9,7 +9,7 @@ namespace engine {
 
 		void Model::loadModel(std::string path) {
 			Assimp::Importer importer;
-			const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
+			const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcess_GenNormals);
 
 			if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 				std::cout << "An error ocurred while loading model at path: " << path << " log: " << importer.GetErrorString() << std::endl;
@@ -84,6 +84,7 @@ namespace engine {
 			}
 
 			if (mesh->mMaterialIndex >= 0) {
+				std::cout << "HAS MATERIAL!!!" << std::endl;
 				aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
 				vector<Texture> diffuseMaps = this->loadMaterialTexture(material, aiTextureType_DIFFUSE, "texture_diffuse");
@@ -92,19 +93,22 @@ namespace engine {
 				vector<Texture> specularMaps = this->loadMaterialTexture(material, aiTextureType_SPECULAR, "texture_specular");
 				textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 			}
+			Mesh* mesh = new Mesh(vertices, indices, textures);
 
-			return Mesh(vertices, indices, textures);
+			return mesh;
 		}
 
 		std::vector<Texture> Model::loadMaterialTexture(aiMaterial* material, aiTextureType type, std::string typeName) {
 			using namespace std;
 			vector<Texture> textures;
 
+				std::cout << "Count " << material->GetTextureCount(type) << std::endl;
 			for (GLuint i = 0; i < material->GetTextureCount(type); i++) {
 				Texture texture;
 
 				aiString str;
 				material->GetTexture(type, i, &str);
+				std::cout << str.C_Str() << std::endl;
 
 				graphics::Texture* gTexture = new graphics::Texture(str.C_Str());
 

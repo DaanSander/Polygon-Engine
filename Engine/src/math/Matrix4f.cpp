@@ -96,6 +96,13 @@ namespace engine {
 			return out;
 		}
 
+		Matrix4f Matrix4f::rotation(const Vector3f& angles) {
+			Matrix4f xRotation = rotation(Vector3f(1.0f, 0.0f, 0.0f), angles.x);
+			Matrix4f yRotation = rotation(Vector3f(0.0f, 1.0f, 0.0f), angles.y);
+			Matrix4f zRotation = rotation(Vector3f(0.0f, 0.0f, 1.0f), angles.z);
+			return xRotation * yRotation * zRotation;
+		}
+
 		Matrix4f Matrix4f::scale(const Vector3f& scale) {
 			Matrix4f out(1.0f);
 			out.elements[0 + 0 * 4] = scale.x;

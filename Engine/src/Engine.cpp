@@ -31,10 +31,8 @@ char* fragmentShader =
 "out vec4 color; \n" \
 "uniform sampler2D texture_diffuse1; \n" \
 "void main() { \n" \
-"color = vec4(TexCoords.x, TexCoords.y, 0.0f, 1.0f); \n" \
+"color = vec4(texture(texture_diffuse1, TexCoords)); \n" \
 "}";
-
-engine::math::Vector3f getPosition(float angle);
 
 int main() {
 	using namespace engine;
@@ -52,51 +50,40 @@ int main() {
 
 	SimpleRenderer* renderer = new SimpleRenderer();
 
-	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\stall.obj");
+	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\TexturedCube.obj");
 
 	Shader* shader = new Shader(vertexShader, fragmentShader);
 
-	std::vector<GLfloat> vertices = { // First triangle
-		0.5f,  0.5f, 0.0f,  // Top Right
-		0.5f, -0.5f, 0.0f,  // Bottom Right
-		-0.5f, -0.5f, 0.0f,  // Bottom Left
-		-0.5f,  0.5f, 0.0f   // Top Left 
-	};
-
-	std::vector<GLuint> indices = { 
-		0, 1, 3,   // First Triangle
-		1, 2, 3    // Second Triangle
-	};
 	float x = 0.0f, y = 0.0f, z = 0.0f;
 
-	Matrix4f perspective = Matrix4f::perspective((float) ((float) window->getWidth() / (float) window->getHeight()), 90.0f, 0.001f, 500.0f);
 	//Matrix4f orthographic = Matrix4f::orthographic(-2.0f, 2.0f, -1.0f, 1.0f, 0.0001f, 500.0f);
+	Matrix4f perspective = Matrix4f::perspective((float) ((float) window->getWidth() / (float) window->getHeight()), 90.0f, 0.001f, 500.0f);
 
 	shader->enable();
+	shader->loadUniformMat4f(shader->getUniformLocation("projection"), perspective);
 	while (!window->shouldClose()) {
 		//std::cout << z << std::endl;
-
-		shader->loadUniformMat4f(shader->getUniformLocation("model"), Matrix4f::identity());
-		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::translation(Vector3f(x, y, z)));
-		shader->loadUniformMat4f(shader->getUniformLocation("projection"), perspective);
+		//TODO rotatie uitesten
+		shader->loadUniformMat4f(shader->getUniformLocation("model"), Matrix4f::rotation(Vector3f(z, x, y)));
+		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::translation(Vector3f(0.0f, 0.0f, -8.0f)));
 
 		renderer->prepareRenderer();
 
-		renderer->renderModel(model);
+		renderer->renderModel(model, shader);
 
 		window->tick();
 		if (window->getInputHandler()->keyDown(GLFW_KEY_W))
-			z += 0.1f;
+			z += 1.0f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_S))
-			z -= 0.1f;
+			z -= 1.0f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_D))
-			x -= 0.1f;
+			x -= 1.0f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_A))
-			x += 0.1f;
+			x += 1.0f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_Q))
-			y += 0.1f;
+			y += 1.0f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_E))
-			y -= 0.1f;
+			y -= 1.0f;
 
 		if (window->getInputHandler()->keyDown(GLFW_KEY_ESCAPE))
 			break;
@@ -104,22 +91,11 @@ int main() {
 
 		window->render();
 	}
-	
 	shader->disable();
 	
 	graphics::Texture::deleteTextures();
 	delete model;
 	delete renderer;
+	delete shader;
 	delete window;
-}
-
-engine::math::Vector3f getPosition(float angle) {
-	using namespace engine;
-	using namespace math;
-	Vector3f out;
-
-	out.x = 10 * cos(angle);
-	out.z = 10 * sin(angle);
-
-	return out;
 }

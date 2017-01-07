@@ -23,6 +23,8 @@ namespace engine {
 			static Matrix4f orthographic(float left, float right, float bottom, float top, float near, float far);
 
 			static Matrix4f rotation(const Vector3f& axis, float degrees);
+			
+			static Matrix4f rotation(const Vector3f& angles);
 
 			static Matrix4f scale(const Vector3f& scale);
 

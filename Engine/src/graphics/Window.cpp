@@ -40,8 +40,12 @@ namespace engine { namespace graphics {
 	}
 
 	Window::~Window() {
+		std::cout << 1 << std::endl;
 		delete inputHandler;
+		std::cout << 2 << std::endl;
 		glfwTerminate();
+
+		std::cout << 3 << std::endl;
 		//glfwDestroyWindow(window);
 	}
 
