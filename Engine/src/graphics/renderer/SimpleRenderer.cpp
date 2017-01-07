@@ -12,9 +12,6 @@ namespace engine { namespace renderer {
 		mesh->setupTextures(shader);
 		glBindVertexArray(mesh->getVaoID());
 
-		glEnableVertexAttribArray(0);
-		glEnableVertexAttribArray(1);
-		glEnableVertexAttribArray(2);
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getEboID());
 
 		//glDrawArrays(GL_TRIANGLES, mesh->vertices.size() / (sizeof(math::Vector3f) + sizeof(math::Vector2f)), GL_FLOAT);
@@ -23,10 +20,7 @@ namespace engine { namespace renderer {
 			std::cout << "An error ocurred whilst trying to draw mesh elements error id: " << errorCode << std::endl;
 			system("pause");
 		}
-
-		glDisableVertexAttribArray(2);
-		glDisableVertexAttribArray(1);
-		glDisableVertexAttribArray(0);
+		
 		glBindVertexArray(0);
 
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -34,7 +28,6 @@ namespace engine { namespace renderer {
 
 	void SimpleRenderer::renderModel(geometry::Model* model, graphics::Shader* shader) {
 		for (int i = 0; i < model->getMeshes().size(); i++)
-			renderMesh(&model->getMeshes()[i], shader);
-			//model->getMeshes()[i].draw(shader);
+			renderMesh(model->getMeshes()[i], shader);
 	}
 }}

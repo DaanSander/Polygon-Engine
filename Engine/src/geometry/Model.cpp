@@ -7,6 +7,11 @@ namespace engine {
 			this->loadModel(path);
 		}
 
+		Model::~Model() {
+			for (int i = 0; i < meshes.size(); i++)
+				delete meshes[i];
+		}
+
 		void Model::loadModel(std::string path) {
 			Assimp::Importer importer;
 			const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcess_GenNormals);
@@ -27,8 +32,8 @@ namespace engine {
 					std::cout << "MESH IS NULL" << std::endl;
 					system("pause");
 				}
-				Mesh gMesh = this->processMesh(mesh, scene);
-				meshes.push_back(gMesh);
+				//Mesh gMesh = ;
+				meshes.push_back(this->processMesh(mesh, scene));
 			}
 
 			for (int i = 0; i < node->mNumChildren; i++) {
@@ -40,7 +45,7 @@ namespace engine {
 			}
 		}
 
-		Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
+		Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene) {
 			using namespace math;
 			using namespace std;
 			vector<Vertex> vertices;
@@ -93,9 +98,9 @@ namespace engine {
 				vector<Texture> specularMaps = this->loadMaterialTexture(material, aiTextureType_SPECULAR, "texture_specular");
 				textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 			}
-			Mesh* mesh = new Mesh(vertices, indices, textures);
+			Mesh* oMesh = new Mesh(vertices, indices, textures);
 
-			return mesh;
+			return oMesh;
 		}
 
 		std::vector<Texture> Model::loadMaterialTexture(aiMaterial* material, aiTextureType type, std::string typeName) {
@@ -110,7 +115,7 @@ namespace engine {
 				material->GetTexture(type, i, &str);
 				std::cout << str.C_Str() << std::endl;
 
-				graphics::Texture* gTexture = new graphics::Texture(str.C_Str());
+				graphics::Texture* gTexture = new graphics::Texture((directory.substr(0, directory.find_last_of("\\")) + "\\" + str.C_Str()).c_str());
 
 				texture.id = gTexture->getTextureID();
 				texture.type = typeName;

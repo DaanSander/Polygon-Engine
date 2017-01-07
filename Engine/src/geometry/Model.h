@@ -13,19 +13,21 @@ namespace engine { namespace geometry {
 
 	class Model {
 
-		std::vector<Mesh> meshes;
+		std::vector<Mesh*> meshes;
 		std::string directory;
 
 	public:
 		Model(GLchar* path);
 
-		inline std::vector<Mesh> getMeshes() { return meshes; }
+		~Model();
+
+		inline std::vector<Mesh*> getMeshes() { return meshes; }
 	private:
 		void loadModel(std::string path);
 
 		void processNode(aiNode* node, const aiScene* scene);
 
-		Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+		Mesh* processMesh(aiMesh* mesh, const aiScene* scene);
 
 		std::vector<Texture> loadMaterialTexture(aiMaterial* material, aiTextureType type, std::string typeName);
 	};

@@ -50,7 +50,7 @@ int main() {
 
 	SimpleRenderer* renderer = new SimpleRenderer();
 
-	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\TexturedCube.obj");
+	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\Nanosuit2\\nanosuit2.3ds");
 
 	Shader* shader = new Shader(vertexShader, fragmentShader);
 
@@ -64,8 +64,8 @@ int main() {
 	while (!window->shouldClose()) {
 		//std::cout << z << std::endl;
 		//TODO rotatie uitesten
-		shader->loadUniformMat4f(shader->getUniformLocation("model"), Matrix4f::rotation(Vector3f(z, x, y)));
-		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::translation(Vector3f(0.0f, 0.0f, -8.0f)));
+		shader->loadUniformMat4f(shader->getUniformLocation("model"), (Matrix4f::rotation(Vector3f(z, x, y)) * Matrix4f::translation(Vector3f(0.0f, -8.0f, 0.0f))));
+		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::translation(Vector3f(0.0f, 0.0f, -10.0f)));
 
 		renderer->prepareRenderer();
 

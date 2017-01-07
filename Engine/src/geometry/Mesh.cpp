@@ -75,7 +75,7 @@ namespace engine { namespace geometry {
 				string number;
 				string name = this->textures[i].type;
 				if (name == "texture_diffuse") {
-					std::cout << "setting up diffuse texture" << std::endl;
+					//std::cout << "setting up diffuse texture" << std::endl;
 					ss << diffuseTexureNr++;
 				} else if (name == "texture_specular")
 					ss << specularTextureNr;
