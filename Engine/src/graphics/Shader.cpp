@@ -30,6 +30,21 @@ namespace engine { namespace graphics {
 		glUniformMatrix4fv(location, 1, GL_FALSE, matrix.elements);
 	}
 
+	void Shader::recompileShader(char* vertexShader, char* fragmentShader) {
+		glDetachShader(this->programID, this->vertexShaderID);
+		glDetachShader(this->programID, this->fragmentShaderID);
+
+		this->vertexShaderID = compileShader(vertexShader, GL_VERTEX_SHADER);
+		this->fragmentShaderID = compileShader(fragmentShader, GL_FRAGMENT_SHADER);
+
+		glAttachShader(this->programID, this->vertexShaderID);
+		glAttachShader(this->programID, this->fragmentShaderID);
+		glLinkProgram(programID);
+
+		glDeleteShader(this->vertexShaderID);
+		glDeleteShader(this->fragmentShaderID);
+	}
+
 	GLuint Shader::compileShader(char* source, GLenum type) {
 		GLuint id = glCreateShader(type);
 

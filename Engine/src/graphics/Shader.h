@@ -25,6 +25,8 @@ namespace engine { namespace graphics {
 
 		GLuint getUniformLocation(char* name);
 
+		void recompileShader(char* vertexShader, char* fragmentShader);
+
 		void loadUniformMat4f(GLuint location, math::Matrix4f matrix);
 
 		inline GLuint getProgramID() { return programID; }

@@ -56,6 +56,8 @@ int main() {
 		//		* Matrix4f::rotation(Vector3f(1.0f, 0.0f), -window->getInputHandler()->getMousePosition().y))* Matrix4f::translation(Vector3f(-x, -y, -z))));
 		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::rotation(Vector3f(0.0f, pitch)) * Matrix4f::translation(Vector3f(-x, -y, -z)));
 		glUniform3f(shader->getUniformLocation("lightPos"), lightPos.x, lightPos.y, lightPos.z);
+		glUniform3f(shader->getUniformLocation("viewPos"), x, y, z);
+
 		renderer->prepareRenderer();
 
 		renderer->renderModel(model, shader);
@@ -90,6 +92,15 @@ int main() {
 			lightPos.y += 0.2f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_KP_9))
 			lightPos.y -= 0.2f;
+
+		if (window->getInputHandler()->keyPressed(GLFW_KEY_F5)) {
+			std::cout << "Reloading shader" << std::endl;
+			shader->recompileShader(readFile("res\\shaders\\SimpleVertexShader.glsl"), readFile("res\\shaders\\SimpleFragmentShader.glsl"));
+			glUniform3f(shader->getUniformLocation("objectColor"), 1.0f, 0.5f, 0.31f);
+			glUniform3f(shader->getUniformLocation("lightColor"), 1.0f, 1.0f, 1.0f);
+
+			shader->loadUniformMat4f(shader->getUniformLocation("projection"), perspective);
+		}
 
 		if (window->getInputHandler()->keyDown(GLFW_KEY_ESCAPE))
 			break;
