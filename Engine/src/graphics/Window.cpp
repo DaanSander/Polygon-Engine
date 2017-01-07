@@ -40,8 +40,9 @@ namespace engine { namespace graphics {
 	}
 
 	Window::~Window() {
-		glfwDestroyWindow(window);
+		delete inputHandler;
 		glfwTerminate();
+		//glfwDestroyWindow(window);
 	}
 
 	void Window::executeCallbacks(std::vector<EventCallbackfunc> callbacks) {

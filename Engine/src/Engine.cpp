@@ -1,4 +1,7 @@
 #include <iostream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 #include <GLFW\glfw3.h>
 #include <assimp\ai_assert.h>
@@ -73,11 +76,8 @@ int main() {
 	while (!window->shouldClose()) {
 		//std::cout << z << std::endl;
 
-		Vector3f position = getPosition(x);
-		Matrix4f oMatrix = Matrix4f::lookAt(Vector3f(), position, Vector3f(0.0f, 1.0f, 0.0f));
-
 		shader->loadUniformMat4f(shader->getUniformLocation("model"), Matrix4f::identity());
-		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::lookAt(Vector3f(), position, Vector3f(0.0f, 1.0f, 0.0f)));
+		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::translation(Vector3f(x, y, z)));
 		shader->loadUniformMat4f(shader->getUniformLocation("projection"), perspective);
 
 		renderer->prepareRenderer();
@@ -104,8 +104,9 @@ int main() {
 
 		window->render();
 	}
+	
 	shader->disable();
-
+	
 	graphics::Texture::deleteTextures();
 	delete model;
 	delete renderer;
