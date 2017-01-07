@@ -89,7 +89,6 @@ namespace engine {
 			}
 
 			if (mesh->mMaterialIndex >= 0) {
-				std::cout << "HAS MATERIAL!!!" << std::endl;
 				aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
 				vector<Texture> diffuseMaps = this->loadMaterialTexture(material, aiTextureType_DIFFUSE, "texture_diffuse");
@@ -107,7 +106,6 @@ namespace engine {
 			using namespace std;
 			vector<Texture> textures;
 
-				std::cout << "Count " << material->GetTextureCount(type) << std::endl;
 			for (GLuint i = 0; i < material->GetTextureCount(type); i++) {
 				Texture texture;
 

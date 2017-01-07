@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../math/Math.h"
 #include "../graphics/Window.h"
 
 #define MAX_KEYS 1024
@@ -10,6 +11,8 @@ namespace engine { namespace io {
 	class InputHandler {
 
 		GLFWwindow* window;
+		double x, y;
+		math::Vector2f mousePosition;
 
 	public:
 		bool keys_down[MAX_KEYS],
@@ -30,6 +33,8 @@ namespace engine { namespace io {
 		inline bool buttonPressed(unsigned int button) { return buttons_pressed[button]; }
 
 		inline GLFWwindow* getWindow() { return window; }
+
+		inline math::Vector2f getMousePosition() { return mousePosition; }
 	};
 
 }}

@@ -8,31 +8,11 @@
 #include "geometry\Model.h"
 #include "graphics\Window.h"
 #include "graphics\renderer\SimpleRenderer.h"
+#include "io\FileUtils.h"
 
 //https://en.wikipedia.org/wiki/Rotation_matrix
 
-char* vertexShader =
-"#version 330 core \n" \
-"layout (location = 0) in vec3 position; \n" \
-"layout (location = 1) in vec3 normal; \n" \
-"layout (location = 2) in vec2 texCoords;\n" \
-"out vec2 TexCoords \n;" \
-"uniform mat4 model; \n" \
-"uniform mat4 view; \n" \
-"uniform mat4 projection; \n" \
-"void main() { \n" \
-"gl_Position = projection * view * model * vec4(position, 1.0f); \n" \
-"TexCoords = texCoords;" \
-"}";
-
-char* fragmentShader =
-"#version 330 core \n" \
-"in vec2 TexCoords; \n" \
-"out vec4 color; \n" \
-"uniform sampler2D texture_diffuse1; \n" \
-"void main() { \n" \
-"color = vec4(texture(texture_diffuse1, TexCoords)); \n" \
-"}";
+void tick();
 
 int main() {
 	using namespace engine;
@@ -40,8 +20,9 @@ int main() {
 	using namespace renderer;
 	using namespace graphics;
 	using namespace math;
+	using namespace io;
 
-	Window* window = new Window(800, 600, "Test");
+	Window* window = new Window(1080, 720, "Test");
 
 	if (glewInit() != GLEW_OK) {
 		printf("Failed to initialize glew");
@@ -50,40 +31,65 @@ int main() {
 
 	SimpleRenderer* renderer = new SimpleRenderer();
 
-	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\Nanosuit2\\nanosuit2.3ds");
+	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\Nanosuit2\\nanosuit2.obj");
 
-	Shader* shader = new Shader(vertexShader, fragmentShader);
+	Shader* shader = new Shader(readFile("res\\shaders\\SimpleVertexShader.glsl"), readFile("res\\shaders\\SimpleFragmentShader.glsl"));
 
-	float x = 0.0f, y = 0.0f, z = 0.0f;
+	float x = 0.0f, y = 0.0f, z = 0.0f, pitch = 0.0f;
+	
+	Vector3f lightPos;
 
 	//Matrix4f orthographic = Matrix4f::orthographic(-2.0f, 2.0f, -1.0f, 1.0f, 0.0001f, 500.0f);
-	Matrix4f perspective = Matrix4f::perspective((float) ((float) window->getWidth() / (float) window->getHeight()), 90.0f, 0.001f, 500.0f);
+	Matrix4f perspective = Matrix4f::perspective((float)((float) window->getWidth() / (float) window->getHeight()), DegToRad(70.0f), 0.1f, 1000.0f);
 
 	shader->enable();
+	glUniform3f(shader->getUniformLocation("objectColor"), 1.0f, 0.5f, 0.31f);
+	glUniform3f(shader->getUniformLocation("lightColor"), 1.0f, 1.0f, 1.0f);
+
 	shader->loadUniformMat4f(shader->getUniformLocation("projection"), perspective);
 	while (!window->shouldClose()) {
-		//std::cout << z << std::endl;
+		//std::cout << window->getInputHandler()->getMousePosition().x << std::endl;
 		//TODO rotatie uitesten
-		shader->loadUniformMat4f(shader->getUniformLocation("model"), (Matrix4f::rotation(Vector3f(z, x, y)) * Matrix4f::translation(Vector3f(0.0f, -8.0f, 0.0f))));
-		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::translation(Vector3f(0.0f, 0.0f, -10.0f)));
-
+		shader->loadUniformMat4f(shader->getUniformLocation("model"), (/*Matrix4f::rotation(Vector3f(z, x, y)) **/ Matrix4f::translation(Vector3f(0.0f, -4.0f, 0.0f))));
+		//shader->loadUniformMat4f(shader->getUniformLocation("view"), 
+		//	((Matrix4f::rotation(Vector3f(0.0f, 1.0f), -window->getInputHandler()->getMousePosition().x)
+		//		* Matrix4f::rotation(Vector3f(1.0f, 0.0f), -window->getInputHandler()->getMousePosition().y))* Matrix4f::translation(Vector3f(-x, -y, -z))));
+		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::rotation(Vector3f(0.0f, pitch)) * Matrix4f::translation(Vector3f(-x, -y, -z)));
+		glUniform3f(shader->getUniformLocation("lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		renderer->prepareRenderer();
 
 		renderer->renderModel(model, shader);
 
 		window->tick();
 		if (window->getInputHandler()->keyDown(GLFW_KEY_W))
-			z += 1.0f;
+			z -= 0.2f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_S))
-			z -= 1.0f;
+			z += 0.2f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_D))
-			x -= 1.0f;
+			x += 0.2f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_A))
-			x += 1.0f;
+			x -= 0.2f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_Q))
-			y += 1.0f;
+			y += 0.2f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_E))
-			y -= 1.0f;
+			y -= 0.2f;
+		if (window->getInputHandler()->keyDown(GLFW_KEY_RIGHT))
+			pitch += 1.0f;
+		if (window->getInputHandler()->keyDown(GLFW_KEY_LEFT))
+			pitch -= 1.0f;
+
+		if (window->getInputHandler()->keyDown(GLFW_KEY_KP_8))
+			lightPos.z -= 0.2f;
+		if (window->getInputHandler()->keyDown(GLFW_KEY_KP_2))
+			lightPos.z += 0.2f;
+		if (window->getInputHandler()->keyDown(GLFW_KEY_KP_4))
+			lightPos.x += 0.2f;
+		if (window->getInputHandler()->keyDown(GLFW_KEY_KP_6))
+			lightPos.x -= 0.2f;
+		if (window->getInputHandler()->keyDown(GLFW_KEY_KP_7))
+			lightPos.y += 0.2f;
+		if (window->getInputHandler()->keyDown(GLFW_KEY_KP_9))
+			lightPos.y -= 0.2f;
 
 		if (window->getInputHandler()->keyDown(GLFW_KEY_ESCAPE))
 			break;

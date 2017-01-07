@@ -38,7 +38,37 @@ namespace engine {
 		}
 
 
+		/*
+		Matrix4f Matrix4f::perspective(float aspect, float fov, float near, float far) {
+			Matrix4f out(1.0f);
+			float tanHalf = tan(fov / 2.0f);
+			
+			//out.elements[0 + 0 * 4] = 1.0f / (tanHalf * aspect);
+			out.elements[0 + 0 * 4] = aspect / tan(fov / 2.0f);
 
+			out.elements[1 + 1 * 4] = 1.0f / tanHalf;
+			out.elements[2 + 2 * 4] = -((far + near) / (far - near));
+			out.elements[3 + 2 * 4] = -1.0f;
+			out.elements[2 + 3 * 4] = -((2.0f * far * near) / (far - near));
+			out.elements[3 + 3 * 4] = 0.0f;
+
+			return out;
+		}
+		
+		Matrix4f Matrix4f::perspective(float aspectHonW, float fovYRadians, float near, float far) {
+			Matrix4f out(1.0f);
+			float cotFovHalf = 1.0f / tan(fovYRadians / 2.0f);
+
+			out.elements[0 + 0 * 4] = cotFovHalf * aspectHonW;
+			out.elements[1 + 1 * 4] = cotFovHalf;
+			out.elements[2 + 2 * 4] = -((far + near) / (far - near));
+			out.elements[3 + 2 * 4] = -1.0f;
+			out.elements[2 + 3 * 4] = -((2.0f * far * near) / (far - near));
+			out.elements[3 + 3 * 4] = 0.0f;
+
+			return out;
+		}
+		*/
 		Matrix4f Matrix4f::perspective(float aspect, float fov, float near, float far) {
 			Matrix4f out(1.0f);
 			float tanHalf = tanh(fov / 2.0f);

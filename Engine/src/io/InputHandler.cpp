@@ -53,5 +53,9 @@ namespace engine { namespace io {
 	void InputHandler::tick() {
 		memset(this->keys_pressed, 0, MAX_KEYS);
 		memset(this->buttons_pressed, 0, MAX_BUTTONS);
+
+		glfwGetCursorPos(window, &this->x, &this->y);
+		mousePosition.x = (float)x;
+		mousePosition.y = (float)y;
 	}
 }}

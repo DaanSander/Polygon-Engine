@@ -8,6 +8,8 @@
 
 namespace engine { namespace entity {
 
+	class EntityBehaviour;
+
 		class Entity {
 
 			static std::vector<Entity*>* entities;
@@ -20,14 +22,19 @@ namespace engine { namespace entity {
 			Entity(math::Vector3f position = math::Vector3f(), math::Vector3f rotation = math::Vector3f(), math::Vector3f scale = math::Vector3f(),
 				geometry::Mesh* mesh = nullptr);
 
+			~Entity();
+
 			void tick();
 
 			void addBehaviour(EntityBehaviour* behaviour);
 
 			void deleteBehaviour(EntityBehaviour* behaviour);
 
-			math::Matrix4f getTransformation();
+			template <class T>
+			EntityBehaviour* getBehaviour();
 
+			math::Matrix4f getTransformation();
+			
 			static void tickEntities();
 
 			static inline std::vector<Entity*>* getEntities() { return entities; }
