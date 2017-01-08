@@ -29,11 +29,12 @@ int main() {
 
 	SimpleRenderer* renderer = new SimpleRenderer();
 
-	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\Cube4.obj");
+	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\Cube3.obj");
 
 	Shader* shader = new Shader(readFile("res\\shaders\\SimpleVertexShader.glsl"), readFile("res\\shaders\\SimpleFragmentShader.glsl"));
+	graphics::Texture* texture = new graphics::Texture("G:\\Downloads\\container2_specular.png");
 
-	float x = 0.0f, y = 0.0f, z = 0.0f, pitch = 0.0f;
+	float x = 0.0f, y = 0.0f, z = 0.0f, pitch = 0.0f, yaw = 0.0f;
 
 	Vector3f lightPos(-0.2f, -1.0f, -0.3f);
 
@@ -41,6 +42,11 @@ int main() {
 	Matrix4f perspective = Matrix4f::perspective((float)((float)window->getWidth() / (float)window->getHeight()), (float) DegToRad(70.0f), 0.1f, 1000.0f);
 
 	shader->enable();
+	glActiveTexture(GL_TEXTURE1);
+
+	glUniform1i(shader->getUniformLocation("material.texture_specular1"), 1);
+	glBindTexture(GL_TEXTURE_2D, texture->getTextureID());
+
 	glUniform3f(shader->getUniformLocation("objectColor"), 1.0f, 0.5f, 0.31f);
 	glUniform3f(shader->getUniformLocation("lightColor"), 1.0f, 1.0f, 1.0f);
 
@@ -49,7 +55,7 @@ int main() {
 	glUniform1f(shader->getUniformLocation("material.shininess"), 64.0f);
 
 	glUniform3f(shader->getUniformLocation("light.ambient"), 0.2f, 0.2f, 0.2f);
-	glUniform3f(shader->getUniformLocation("light.diffuse"), 1.5f, 0.5f, 0.5f);
+	glUniform3f(shader->getUniformLocation("light.diffuse"), 0.5f, 0.5f, 0.5f);
 	glUniform3f(shader->getUniformLocation("light.specular"), 1.0f, 1.0f, 1.0f);
 
 
@@ -59,9 +65,10 @@ int main() {
 
 
 		shader->loadUniformMat4f(shader->getUniformLocation("model"), (/*Matrix4f::rotation(Vector3f(z, x, y)) **/ Matrix4f::translation(Vector3f(0.0f, -4.0f, 0.0f))));
-		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::rotation(Vector3f(0.0f, pitch)) * Matrix4f::translation(Vector3f(-x, -y, -z)));
+		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::translation(Vector3f(-x, -y, -z)) * Matrix4f::rotation(Vector3f(yaw, pitch)));
 		glUniform3f(shader->getUniformLocation("light.direction"), lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(shader->getUniformLocation("viewPos"), x, y, z);
+		glUniform3f(shader->getUniformLocation("viewRotation"), pitch, yaw, 0.0f);
 
 		renderer->prepareRenderer();
 
@@ -80,10 +87,16 @@ int main() {
 			y += 0.2f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_E))
 			y -= 0.2f;
+
 		if (window->getInputHandler()->keyDown(GLFW_KEY_RIGHT))
 			pitch += 1.0f;
 		if (window->getInputHandler()->keyDown(GLFW_KEY_LEFT))
 			pitch -= 1.0f;
+		if (window->getInputHandler()->keyDown(GLFW_KEY_UP))
+			yaw -= 1.0f;
+		if (window->getInputHandler()->keyDown(GLFW_KEY_DOWN))
+			yaw += 1.0f;
+
 
 		if (window->getInputHandler()->keyDown(GLFW_KEY_KP_8))
 			lightPos.z -= 0.2f;
@@ -109,7 +122,7 @@ int main() {
 			glUniform1f(shader->getUniformLocation("material.shininess"), 64.0f);
 
 			glUniform3f(shader->getUniformLocation("light.ambient"), 0.2f, 0.2f, 0.2f);
-			glUniform3f(shader->getUniformLocation("light.diffuse"), 1.5f, 0.5f, 0.5f);
+			glUniform3f(shader->getUniformLocation("light.diffuse"), 0.5f, 0.5f, 0.5f);
 			glUniform3f(shader->getUniformLocation("light.specular"), 1.0f, 1.0f, 1.0f);
 
 
