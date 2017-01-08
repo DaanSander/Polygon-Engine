@@ -78,11 +78,11 @@ namespace engine { namespace geometry {
 					//std::cout << "setting up diffuse texture" << std::endl;
 					ss << diffuseTexureNr++;
 				} else if (name == "texture_specular")
-					ss << specularTextureNr;
+					ss << specularTextureNr++;
 
 				number = ss.str();
-
-				glUniform1f(shader->getUniformLocation((char*) ("material." + name + number).c_str()), i);
+				
+				glUniform1i(shader->getUniformLocation((char*) ("material." + name + number).c_str()), i);
 				glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
 			}
 

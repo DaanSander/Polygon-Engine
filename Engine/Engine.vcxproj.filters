@@ -136,7 +136,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\Kriss Vector.mtl" />
     <None Include="res\Sphere.fbx" />
     <None Include="res\Sphere.mtl" />
     <None Include="res\Sphere2.mtl" />

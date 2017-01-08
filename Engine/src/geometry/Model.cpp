@@ -106,6 +106,7 @@ namespace engine {
 			using namespace std;
 			vector<Texture> textures;
 
+			std::cout << "Count " << typeName << material->GetTextureCount(type) << std::endl;
 			for (GLuint i = 0; i < material->GetTextureCount(type); i++) {
 				Texture texture;
 

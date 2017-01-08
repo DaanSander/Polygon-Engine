@@ -1,7 +1,7 @@
 # Blender MTL File: 'None'
-# Material Count: 6
+# Material Count: 7
 
-newmtl Arm.001
+newmtl Arm
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -10,9 +10,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd G:\Downloads\container2.png
+map_Kd Nanosuit2\arm_showroom_spec.png
 
-newmtl Body.001
+newmtl Body
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -21,9 +21,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd G:\Downloads\container2.png
+map_Kd Nanosuit2\body_showroom_spec.png
 
-newmtl Glass.001
+newmtl Glass
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -32,9 +32,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd G:\Downloads\container2.png
+map_Kd Nanosuit2\glass_di.png
 
-newmtl Hand.001
+newmtl Glass_NONE
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -43,9 +43,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd G:\Downloads\container2.png
 
-newmtl Helmet.001
+newmtl Hand
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -54,9 +53,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd G:\Downloads\container2.png
+map_Kd Nanosuit2\hand_dif.png
 
-newmtl Leg.001
+newmtl Helmet
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -65,4 +64,15 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd G:\Downloads\container2.png
+map_Kd Nanosuit2\helmet_d.png
+
+newmtl Leg
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Nanosuit2\leg_dif.png

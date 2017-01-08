@@ -171,7 +171,6 @@
     <ClInclude Include="src\math\Vector4f.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\Kriss Vector.mtl" />
     <None Include="res\shaders\SimpleFragmentShader.glsl" />
     <None Include="res\shaders\SimpleVertexShader.glsl" />
     <None Include="res\Sphere.fbx" />
