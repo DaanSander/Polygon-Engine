@@ -8,7 +8,7 @@
 
 namespace engine { namespace entity {
 
-	class EntityBehaviour;
+	struct EntityBehaviour;
 
 		class Entity {
 

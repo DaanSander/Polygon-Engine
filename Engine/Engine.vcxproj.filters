@@ -136,12 +136,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shaders\SimpleVertexShader.glsl" />
     <None Include="res\Kriss Vector.mtl" />
     <None Include="res\Sphere.fbx" />
     <None Include="res\Sphere.mtl" />
     <None Include="res\Sphere2.mtl" />
     <None Include="res\TexturedCube.mtl" />
     <None Include="res\shaders\SimpleFragmentShader.glsl" />
+    <None Include="res\shaders\SimpleVertexShader.glsl" />
   </ItemGroup>
 </Project>

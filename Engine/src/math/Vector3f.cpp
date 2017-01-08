@@ -9,8 +9,8 @@ namespace engine { namespace math {
 	}
 
 	float Vector3f::magnitude() const {
-		float length = (pow(this->x, 2.0f) + pow(this->y, 2.0f));
-		return sqrt(pow(this->z, 2.0f) + length);
+		float length = ((float) pow(this->x, 2.0f) + (float) pow(this->y, 2.0f));
+		return (float) sqrt(pow(this->z, 2.0f) + length);
 	}
 
 	float Vector3f::dot(Vector3f other) const {

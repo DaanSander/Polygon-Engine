@@ -12,8 +12,6 @@
 
 //https://en.wikipedia.org/wiki/Rotation_matrix
 
-void tick();
-
 int main() {
 	using namespace engine;
 	using namespace geometry;
@@ -31,29 +29,36 @@ int main() {
 
 	SimpleRenderer* renderer = new SimpleRenderer();
 
-	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\Nanosuit2\\nanosuit2.obj");
+	Model* model = new Model("G:\\Projects\\C++\\Polygon-Engine\\Engine\\Engine\\res\\Suit.obj");
 
 	Shader* shader = new Shader(readFile("res\\shaders\\SimpleVertexShader.glsl"), readFile("res\\shaders\\SimpleFragmentShader.glsl"));
 
 	float x = 0.0f, y = 0.0f, z = 0.0f, pitch = 0.0f;
-	
+
 	Vector3f lightPos;
 
 	//Matrix4f orthographic = Matrix4f::orthographic(-2.0f, 2.0f, -1.0f, 1.0f, 0.0001f, 500.0f);
-	Matrix4f perspective = Matrix4f::perspective((float)((float) window->getWidth() / (float) window->getHeight()), DegToRad(70.0f), 0.1f, 1000.0f);
+	Matrix4f perspective = Matrix4f::perspective((float)((float)window->getWidth() / (float)window->getHeight()), DegToRad(70.0f), 0.1f, 1000.0f);
 
 	shader->enable();
 	glUniform3f(shader->getUniformLocation("objectColor"), 1.0f, 0.5f, 0.31f);
 	glUniform3f(shader->getUniformLocation("lightColor"), 1.0f, 1.0f, 1.0f);
 
+	glUniform3f(shader->getUniformLocation("material.diffuse"), 0.07568f, 0.61424f, 0.07568f);
+	glUniform3f(shader->getUniformLocation("material.specular"), 0.5f, 0.5f, 0.5f);
+	glUniform1f(shader->getUniformLocation("material.shininess"), 64.0f);
+
+	glUniform3f(shader->getUniformLocation("light.ambient"), 0.2f, 0.2f, 0.2f);
+	glUniform3f(shader->getUniformLocation("light.diffuse"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(shader->getUniformLocation("light.specular"), 1.0f, 1.0f, 1.0f);
+
+
 	shader->loadUniformMat4f(shader->getUniformLocation("projection"), perspective);
 	while (!window->shouldClose()) {
-		//std::cout << window->getInputHandler()->getMousePosition().x << std::endl;
-		//TODO rotatie uitesten
+		glUniform3f(shader->getUniformLocation("light.position"), lightPos.x, lightPos.y, lightPos.z);
+
 		shader->loadUniformMat4f(shader->getUniformLocation("model"), (/*Matrix4f::rotation(Vector3f(z, x, y)) **/ Matrix4f::translation(Vector3f(0.0f, -4.0f, 0.0f))));
-		//shader->loadUniformMat4f(shader->getUniformLocation("view"), 
-		//	((Matrix4f::rotation(Vector3f(0.0f, 1.0f), -window->getInputHandler()->getMousePosition().x)
-		//		* Matrix4f::rotation(Vector3f(1.0f, 0.0f), -window->getInputHandler()->getMousePosition().y))* Matrix4f::translation(Vector3f(-x, -y, -z))));
+
 		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::rotation(Vector3f(0.0f, pitch)) * Matrix4f::translation(Vector3f(-x, -y, -z)));
 		glUniform3f(shader->getUniformLocation("lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(shader->getUniformLocation("viewPos"), x, y, z);
@@ -109,7 +114,7 @@ int main() {
 		window->render();
 	}
 	shader->disable();
-	
+
 	graphics::Texture::deleteTextures();
 	delete model;
 	delete renderer;

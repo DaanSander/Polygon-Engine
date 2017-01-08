@@ -50,7 +50,7 @@ namespace engine { namespace graphics {
 	}
 
 	void Window::executeCallbacks(std::vector<EventCallbackfunc> callbacks) {
-		for (int i = 0; i < callbacks.size(); i++) {
+		for (unsigned int i = 0; i < callbacks.size(); i++) {
 			callbacks[i]();
 		}
 	}

@@ -58,7 +58,7 @@ namespace engine { namespace graphics {
 	}
 
 	void Texture::deleteTextures() {
-		for (int i = 0; i < textures->size(); i++)
+		for (unsigned int i = 0; i < textures->size(); i++)
 			delete textures->at(i);
 
 		delete textures;

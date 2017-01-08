@@ -9,7 +9,7 @@ namespace engine {
 		}
 
 		float Vector2f::magnitude() const {
-			return sqrt((pow(this->x, 2.0f) + pow(this->y, 2.0f)));
+			return (float) sqrt((pow(this->x, 2.0f) + pow(this->y, 2.0f)));
 		}
 
 		float Vector2f::dot(Vector2f vector) const {

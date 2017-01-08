@@ -71,7 +71,7 @@ namespace engine {
 		*/
 		Matrix4f Matrix4f::perspective(float aspect, float fov, float near, float far) {
 			Matrix4f out(1.0f);
-			float tanHalf = tanh(fov / 2.0f);
+			float tanHalf = (float) tanh(fov / 2.0f);
 
 			out.elements[0 + 0 * 4] = 1.0f / (tanHalf * aspect);
 			out.elements[1 + 1 * 4] = 1.0f / tanHalf;
@@ -103,8 +103,8 @@ namespace engine {
 		Matrix4f Matrix4f::rotation(const Vector3f& axis, float angle) {
 			Matrix4f out(1.0f);
 			float rad = (float)DegToRad(angle);
-			float c = cos(rad);
-			float s = sin(rad);
+			float c = (float) cos(rad);
+			float s = (float) sin(rad);
 			float omc = 1 - c;
 
 			float x = axis.x;

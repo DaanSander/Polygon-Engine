@@ -15,7 +15,7 @@ namespace engine {
 		}
 
 		Entity::~Entity() {
-			for (int i = 0; i < behaviours->size(); i++)
+			for (unsigned int i = 0; i < behaviours->size(); i++)
 				delete behaviours->at(i);
 		}
 

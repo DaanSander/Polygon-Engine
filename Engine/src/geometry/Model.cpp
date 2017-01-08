@@ -8,7 +8,7 @@ namespace engine {
 		}
 
 		Model::~Model() {
-			for (int i = 0; i < meshes.size(); i++)
+			for (unsigned int i = 0; i < meshes.size(); i++)
 				delete meshes[i];
 		}
 
@@ -26,7 +26,7 @@ namespace engine {
 		}
 
 		void Model::processNode(aiNode* node, const aiScene* scene) {
-			for (int i = 0; i < node->mNumMeshes; i++) {
+			for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 				aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 				if (mesh == nullptr) {
 					std::cout << "MESH IS NULL" << std::endl;
@@ -36,7 +36,7 @@ namespace engine {
 				meshes.push_back(this->processMesh(mesh, scene));
 			}
 
-			for (int i = 0; i < node->mNumChildren; i++) {
+			for (unsigned int i = 0; i < node->mNumChildren; i++) {
 				if (node->mChildren[i] == nullptr) {
 					std::cout << "NODE IS NULL" << std::endl;
 					system("pause");
@@ -52,7 +52,7 @@ namespace engine {
 			vector<GLuint> indices;
 			vector<Texture> textures;
 
-			for (int i = 0; i < mesh->mNumVertices; i++) {
+			for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 				Vertex* vertex = new Vertex();
 
 				Vector3f vector;
@@ -113,7 +113,8 @@ namespace engine {
 				material->GetTexture(type, i, &str);
 				std::cout << str.C_Str() << std::endl;
 
-				graphics::Texture* gTexture = new graphics::Texture((directory.substr(0, directory.find_last_of("\\")) + "\\" + str.C_Str()).c_str());
+				//graphics::Texture* gTexture = new graphics::Texture((directory.substr(0, directory.find_last_of("\\")) + "\\" + str.C_Str()).c_str());
+				graphics::Texture* gTexture = new graphics::Texture(string(str.C_Str()).c_str());
 
 				texture.id = gTexture->getTextureID();
 				texture.type = typeName;
