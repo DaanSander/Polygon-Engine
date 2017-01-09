@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -36,7 +37,7 @@ int main() {
 
 	float x = 0.0f, y = 0.0f, z = 0.0f, pitch = 0.0f, yaw = 0.0f;
 
-	Vector3f lightPos(-0.2f, -1.0f, -0.3f);
+	Vector3f lightPos;
 
 	//Matrix4f orthographic = Matrix4f::orthographic(-2.0f, 2.0f, -1.0f, 1.0f, 0.0001f, 500.0f);
 	Matrix4f perspective = Matrix4f::perspective((float)((float)window->getWidth() / (float)window->getHeight()), (float) DegToRad(70.0f), 0.1f, 1000.0f);
@@ -47,16 +48,24 @@ int main() {
 	glUniform1i(shader->getUniformLocation("material.texture_specular1"), 1);
 	glBindTexture(GL_TEXTURE_2D, texture->getTextureID());
 
-	glUniform3f(shader->getUniformLocation("objectColor"), 1.0f, 0.5f, 0.31f);
+	glUniform3f(shader->getUniformLocation("objectColor"), 1.0f, 1.0f, 1.0f);
 	glUniform3f(shader->getUniformLocation("lightColor"), 1.0f, 1.0f, 1.0f);
 
 	glUniform3f(shader->getUniformLocation("material.diffuse"), 0.07568f, 0.61424f, 0.07568f);
 	glUniform3f(shader->getUniformLocation("material.specular"), 0.5f, 0.5f, 0.5f);
-	glUniform1f(shader->getUniformLocation("material.shininess"), 64.0f);
+	glUniform1f(shader->getUniformLocation("material.shininess"), 32.0f);
 
 	glUniform3f(shader->getUniformLocation("light.ambient"), 0.2f, 0.2f, 0.2f);
-	glUniform3f(shader->getUniformLocation("light.diffuse"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(shader->getUniformLocation("light.diffuse"), 1.0f, 1.0f, 1.0f);
 	glUniform3f(shader->getUniformLocation("light.specular"), 1.0f, 1.0f, 1.0f);
+
+	glUniform1f(shader->getUniformLocation("light.constant"), 1.0f);
+	glUniform1f(shader->getUniformLocation("light.linear"), 0.09f);
+	glUniform1f(shader->getUniformLocation("light.quadratic"), 0.032f);
+
+	glUniform3f(shader->getUniformLocation("light.direction"), 0.0f, 0.0f, -1.0f);
+	glUniform1f(shader->getUniformLocation("light.cutOff"), cos(DegToRad(12.5f)));
+
 
 
 	shader->loadUniformMat4f(shader->getUniformLocation("projection"), perspective);
@@ -66,9 +75,11 @@ int main() {
 
 		shader->loadUniformMat4f(shader->getUniformLocation("model"), (/*Matrix4f::rotation(Vector3f(z, x, y)) **/ Matrix4f::translation(Vector3f(0.0f, -4.0f, 0.0f))));
 		shader->loadUniformMat4f(shader->getUniformLocation("view"), Matrix4f::translation(Vector3f(-x, -y, -z)) * Matrix4f::rotation(Vector3f(yaw, pitch)));
-		glUniform3f(shader->getUniformLocation("light.direction"), lightPos.x, lightPos.y, lightPos.z);
+//		glUniform3f(shader->getUniformLocation("light.position"), lightPos.x, lightPos.y, lightPos.z);
+		glUniform3f(shader->getUniformLocation("light.position"), x, y, z);
+
 		glUniform3f(shader->getUniformLocation("viewPos"), x, y, z);
-		glUniform3f(shader->getUniformLocation("viewRotation"), pitch, yaw, 0.0f);
+		glUniform3f(shader->getUniformLocation("viewRotation"), pitch, -yaw, 0.0f);
 
 		renderer->prepareRenderer();
 

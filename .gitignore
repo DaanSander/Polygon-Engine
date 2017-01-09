@@ -248,3 +248,7 @@
  -# JetBrains Rider
  -.idea/
  -*.sln.iml
+/.vs/Engine/v15/Browse.VC.opendb
+*.opendb
+*.opendb
+*.opendb
