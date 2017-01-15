@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7CC5AD0F-698D-440C-A007-4CB5A8601165}</ProjectGuid>
     <RootNamespace>Engine</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -129,13 +129,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\entity\behaviours\LightComponent.cpp" />
     <ClCompile Include="src\entity\Enity.cpp" />
-    <ClCompile Include="src\entity\EntityBehaviour.cpp" />
+    <ClCompile Include="src\entity\EntityComponent.cpp" />
     <ClCompile Include="src\geometry\Mesh.cpp" />
     <ClCompile Include="src\geometry\Model.cpp" />
     <ClCompile Include="src\graphics\buffers\Buffer.cpp" />
     <ClCompile Include="src\graphics\buffers\IndexBuffer.cpp" />
     <ClCompile Include="src\graphics\buffers\VertexArray.cpp" />
+    <ClCompile Include="src\graphics\Light.cpp" />
     <ClCompile Include="src\graphics\material\Material.cpp" />
     <ClCompile Include="src\graphics\renderer\SimpleRenderer.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
@@ -149,13 +151,16 @@
     <ClCompile Include="src\math\Vector4f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entity\behaviours\LightComponent.h" />
+    <ClInclude Include="src\entity\behaviours\ModelRenderBehaviour.h" />
     <ClInclude Include="src\entity\Entity.h" />
-    <ClInclude Include="src\entity\EntityBehaviour.h" />
+    <ClInclude Include="src\entity\EntityComponent.h" />
     <ClInclude Include="src\geometry\Mesh.h" />
     <ClInclude Include="src\geometry\Model.h" />
     <ClInclude Include="src\graphics\buffers\Buffer.h" />
     <ClInclude Include="src\graphics\buffers\IndexBuffer.h" />
     <ClInclude Include="src\graphics\buffers\VertexArray.h" />
+    <ClInclude Include="src\graphics\Light.h" />
     <ClInclude Include="src\graphics\material\Material.h" />
     <ClInclude Include="src\graphics\renderer\SimpleRenderer.h" />
     <ClInclude Include="src\graphics\Shader.h" />
@@ -173,10 +178,10 @@
   <ItemGroup>
     <None Include="res\shaders\SimpleFragmentShader.glsl" />
     <None Include="res\shaders\SimpleVertexShader.glsl" />
-    <None Include="res\Sphere.fbx" />
-    <None Include="res\Sphere.mtl" />
-    <None Include="res\Sphere2.mtl" />
-    <None Include="res\TexturedCube.mtl" />
+    <None Include="res\models\Sphere.fbx" />
+    <None Include="res\models\Sphere.mtl" />
+    <None Include="res\models\Sphere2.mtl" />
+    <None Include="res\models\TexturedCube.mtl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

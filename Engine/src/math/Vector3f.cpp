@@ -43,6 +43,14 @@ namespace engine { namespace math {
 		return out;
 	}
 
+	Vector3f Vector3f::divide(float devider) const {
+		Vector3f out;
+		out.x = this->x / devider;
+		out.y = this->y / devider;
+		out.z = this->z / devider;
+		return out;
+	}
+
 	Vector3f Vector3f::reverse() const {
 		Vector3f out;
 		out.x = -this->x;
@@ -85,5 +93,9 @@ namespace engine { namespace math {
 
 	Vector3f operator* (const Vector3f& vector, float scalar) {
 		return vector.multiply(scalar);
+	}
+
+	Vector3f operator/ (const Vector3f& vector, float divider) {
+		return vector.divide(divider);
 	}
 }}

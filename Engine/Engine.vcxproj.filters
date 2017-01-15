@@ -63,13 +63,19 @@
     <ClCompile Include="src\graphics\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\entity\EntityBehaviour.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\entity\Enity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\io\FileUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\EntityComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\behaviours\LightComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,22 +131,31 @@
     <ClInclude Include="src\graphics\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\entity\EntityBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\entity\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\io\FileUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\entity\behaviours\ModelRenderBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\EntityComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\behaviours\LightComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\Sphere.fbx" />
-    <None Include="res\Sphere.mtl" />
-    <None Include="res\Sphere2.mtl" />
-    <None Include="res\TexturedCube.mtl" />
     <None Include="res\shaders\SimpleFragmentShader.glsl" />
     <None Include="res\shaders\SimpleVertexShader.glsl" />
+    <None Include="res\models\Sphere.fbx" />
+    <None Include="res\models\Sphere.mtl" />
+    <None Include="res\models\Sphere2.mtl" />
+    <None Include="res\models\TexturedCube.mtl" />
   </ItemGroup>
 </Project>

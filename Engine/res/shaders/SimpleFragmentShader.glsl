@@ -36,26 +36,29 @@ uniform vec3 objectColor;
 uniform vec3 lightColor;
 
 uniform Material material;
-uniform Light light;
+
+uniform Light lights[4];
+
+//uniform Light light;
 
 void main() {
 
-	vec3 lightDir = normalize(light.position - FragPos);
-	float theta = dot(lightDir, normalize(-light.direction));
+	vec3 lightDir = normalize(lights[0].position - FragPos);
+	float theta = dot(lightDir, normalize(-lights[0].direction));
 
-	if(theta > light.cutOff) {
+	//if(theta > lights[0].cutOff) {
 	//vec3 fragColor = vec3(1.0f, 1.0f, 0.0f);
-	float distance = length(light.position - FragPos);
-	float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+	float distance = length(lights[0].position - FragPos);
+	float attenuation = 1.0f / (lights[0].constant + lights[0].linear * distance + lights[0].quadratic * (distance * distance));
 	
 	vec3 fragColor = vec3(texture(material.texture_diffuse1, TexCoords).xyz);
 
-	vec3 ambient = light.ambient * fragColor;
+	vec3 ambient = lights[0].ambient * fragColor;
 	vec3 norm = normalize(Normal);
-	//vec3 lightDir = normalize(-light.direction);
+	//vec3 lightDir = normalize(-lights[0].direction);
 	
 	float diff = max(dot(lightDir, norm), 0.0);
-	vec3 diffuse = (light.diffuse * diff * fragColor);
+	vec3 diffuse = (lights[0].diffuse * diff * fragColor);
 
 	//Right light without rotation of view
 	//vec3 viewDir = normalize(viewPos - FragPos);
@@ -69,7 +72,7 @@ void main() {
 	vec3 reflectionDir = reflect(-lightDir, norm);
 
 	float spec = pow(max(dot(viewDir, reflectionDir), 0.0) , material.shininess);
-	vec3 specular = (light.specular * spec * vec3(texture(material.texture_specular1, TexCoords)));
+	vec3 specular = (lights[0].specular * spec * vec3(texture(material.texture_specular1, TexCoords)));
 
 	ambient *= attenuation;
 	diffuse *= attenuation;
@@ -78,6 +81,6 @@ void main() {
 	vec3 result = (ambient + diffuse + specular);
 	//color = vec4(texture(texture_diffuse1, TexCoords));
 	color = vec4(result, 1.0);
-	} else
-		color = vec4(light.ambient * vec3(texture(material.texture_diffuse1, TexCoords)), 1.0f);
+	//} else
+		//color = vec4(lights[0].ambient * vec3(texture(material.texture_diffuse1, TexCoords)), 1.0f);
 }

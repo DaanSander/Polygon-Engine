@@ -1,7 +1,10 @@
 #include <unordered_map>
 #include <iostream>
+#include <sstream>
+#include <string>
 #include <GL/glew.h>
 
+#include "Light.h"
 #include "..\math\Math.h"
 
 namespace engine { namespace graphics {
@@ -28,6 +31,10 @@ namespace engine { namespace graphics {
 		void recompileShader(char* vertexShader, char* fragmentShader);
 
 		void loadUniformMat4f(GLuint location, math::Matrix4f matrix);
+
+		void loadUniformVector3f(GLuint location, math::Vector3f vector);
+
+		void loadLights(std::vector<Light*> light);
 
 		inline GLuint getProgramID() { return programID; }
 	};

@@ -2,41 +2,40 @@
 
 #include <typeinfo>
 #include <vector>
-#include "EntityBehaviour.h"
+#include "EntityComponent.h"
 #include "..\math\Math.h"
 #include "..\geometry\Mesh.h"
 
 namespace engine { namespace entity {
 
-	struct EntityBehaviour;
+	struct EntityComponent;
 
 		class Entity {
 
-			static std::vector<Entity*>* entities;
-			std::vector<EntityBehaviour*>* behaviours;
-			geometry::Mesh* mesh;
+			static std::vector<Entity*> entities;
+			std::vector<EntityComponent*> behaviours;
+			//geometry::Mesh* mesh;
 
 		public:
 			math::Vector3f position, rotation, scale;
 
-			Entity(math::Vector3f position = math::Vector3f(), math::Vector3f rotation = math::Vector3f(), math::Vector3f scale = math::Vector3f(),
-				geometry::Mesh* mesh = nullptr);
+			Entity(math::Vector3f position = math::Vector3f(), math::Vector3f rotation = math::Vector3f(), math::Vector3f scale = math::Vector3f());
 
 			~Entity();
 
 			void tick();
 
-			void addBehaviour(EntityBehaviour* behaviour);
+			void addComponent(EntityComponent* behaviour);
 
-			void deleteBehaviour(EntityBehaviour* behaviour);
+			void deleteComponent(EntityComponent* behaviour);
 
 			template <class T>
-			EntityBehaviour* getBehaviour();
+			EntityComponent* getBehaviour();
 
 			math::Matrix4f getTransformation();
 			
 			static void tickEntities();
 
-			static inline std::vector<Entity*>* getEntities() { return entities; }
+			static inline std::vector<Entity*> getEntities() { return entities; }
 		};
 }}

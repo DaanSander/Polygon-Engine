@@ -29,6 +29,8 @@ namespace engine { namespace math {
 
 		Vector3f multiply(float scalar) const;
 
+		Vector3f divide(float devider) const;
+
 		Vector3f reverse() const;
 
 		Vector3f substract(Vector3f other) const;
@@ -46,6 +48,8 @@ namespace engine { namespace math {
 		friend float operator* (const Vector3f& a, const Vector3f& other);
 
 		friend Vector3f operator* (const Vector3f& vector, float scalar);
+
+		friend Vector3f operator/ (const Vector3f& vector, float divider);
 	};
 
 }}

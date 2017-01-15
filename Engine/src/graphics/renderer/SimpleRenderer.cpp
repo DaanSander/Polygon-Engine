@@ -27,7 +27,7 @@ namespace engine { namespace renderer {
 	}
 
 	void SimpleRenderer::renderModel(geometry::Model* model, graphics::Shader* shader) {
-		for (int i = 0; i < model->getMeshes().size(); i++)
+		for (unsigned int i = 0; i < model->getMeshes().size(); i++)
 			renderMesh(model->getMeshes()[i], shader);
 	}
 }}

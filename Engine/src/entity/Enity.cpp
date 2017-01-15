@@ -3,48 +3,49 @@
 namespace engine {
 	namespace entity {
 
-		std::vector<Entity*>* Entity::entities;
+		std::vector<Entity*> Entity::entities(0);
 
-		Entity::Entity(math::Vector3f position, math::Vector3f rotation, math::Vector3f scale, geometry::Mesh* mesh) {
+		Entity::Entity(math::Vector3f position, math::Vector3f rotation, math::Vector3f scale) {
 			this->position = position;
 			this->rotation = rotation;
 			this->scale = scale;
-			this->mesh = mesh;
 
-			entities->push_back(this);
+			entities.push_back(this);
 		}
 
 		Entity::~Entity() {
-			for (unsigned int i = 0; i < behaviours->size(); i++)
-				delete behaviours->at(i);
+			for (unsigned int i = 0; i < behaviours.size(); i++)
+				delete behaviours.at(i);
+
+			//delete entities;
 		}
 
 		void Entity::tick() {
-			for (unsigned int i = 0; i < behaviours->size(); i++)
-				behaviours->at(i)->tickBehaviour();
+			for (unsigned int i = 0; i < behaviours.size(); i++)
+				behaviours.at(i)->tickBehaviour();
 		}
 
-		void Entity::addBehaviour(EntityBehaviour* behaviour) {
-			behaviours->push_back(behaviour);
-			//behaviour->entity = this;
+		void Entity::addComponent(EntityComponent* behaviour) {
+			behaviours.push_back(behaviour);
+			behaviour->entity = this;
 			behaviour->init();
 		}
 
-		void Entity::deleteBehaviour(EntityBehaviour* behaviour) {
-			for (unsigned int i = 0; i < behaviours->size(); i++) {
-				if (typeid(behaviours->at(i)) == typeid(behaviour))
-					behaviours->erase(behaviours->begin() + i);
+		void Entity::deleteComponent(EntityComponent* behaviour) {
+			for (unsigned int i = 0; i < behaviours.size(); i++) {
+				if (typeid(behaviours.at(i)) == typeid(behaviour))
+					behaviours.erase(behaviours.begin() + i);
 			}
 		}
 
 		void Entity::tickEntities() {
-			for (unsigned int i = 0; i < entities->size(); i++) {
-				entities->at(i)->tick();
+			for (unsigned int i = 0; i < entities.size(); i++) {
+				entities.at(i)->tick();
 			}
 		}
 
 		template <class T>
-		EntityBehaviour* Entity::getBehaviour() {
+		EntityComponent* Entity::getBehaviour() {
 			for (int i = 0; i < behaviours->size(); i++) {
 				if (std::is_base_of < T, behaviours->at(i))
 					return behaviours->at(i);

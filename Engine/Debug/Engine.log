@@ -1,6 +1,3 @@
-﻿  Window.cpp
-  Engine.cpp
-g:\onedrive\documenten\visual studio 2017\projects\polygon-engine\engine\engine\src\engine.cpp(67): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-  Generating Code...
+﻿  Light.cpp
   Engine.vcxproj -> G:\Onedrive\Documenten\Visual Studio 2017\Projects\Polygon-Engine\Engine\Debug\Engine.exe
   Engine.vcxproj -> G:\Onedrive\Documenten\Visual Studio 2017\Projects\Polygon-Engine\Engine\Debug\Engine.pdb (Partial PDB)

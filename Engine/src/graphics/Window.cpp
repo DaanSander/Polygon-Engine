@@ -2,6 +2,8 @@
 
 namespace engine { namespace graphics {
 
+	extern "C" __declspec(dllexport) unsigned int NvOptimusEnablement = 0x1;
+
 	Window::Window(unsigned int width, unsigned int height, char* name) {
 		this->width = width;
 		this->height = height;
